@@ -157,6 +157,49 @@ const SectionHeading: React.FC<{ children: React.ReactNode; sub?: string }> = ({
 );
 
 // ── Main Component ─────────────────────────────────────────────────────────────
+const TwinkleStars = () => {
+  const [stars, setStars] = useState<{ id: number; left: string; top: string; delay: string; size: string; duration: string; color: string }[]>([]);
+  
+  useEffect(() => {
+    // Generate ~1000 realistic stars
+    const newStars = Array.from({ length: 1000 }).map((_, i) => {
+      const size = Math.random() * 2 + 0.5 + 'px'; 
+      const colors = ['#ffffff', '#fdf8ff', '#f0f8ff', '#fffacd'];
+      return {
+        id: i,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        delay: `${Math.random() * 5}s`,
+        duration: `${Math.random() * 2 + 0.5}s`, 
+        size,
+        color: colors[Math.floor(Math.random() * colors.length)]
+      };
+    });
+    setStars(newStars);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      {stars.map((star) => (
+        <div
+          key={star.id}
+          className="absolute rounded-full animate-twinkle"
+          style={{
+            left: star.left,
+            top: star.top,
+            width: star.size,
+            height: star.size,
+            backgroundColor: star.color,
+            boxShadow: `0 0 ${parseFloat(star.size) * 4}px ${star.color}`,
+            animationDelay: star.delay,
+            animationDuration: star.duration,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 export const LandingView: React.FC = () => {
   const [prompt, setPrompt] = useState('');
   const [annualBilling, setAnnualBilling] = useState(false);
@@ -311,7 +354,7 @@ export const LandingView: React.FC = () => {
           <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-bg-l0 to-transparent" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto space-y-8">
+        <div className="relative z-10 w-full max-w-4xl mx-auto space-y-8">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm px-4 py-1.5">
             <Sparkles className="h-3.5 w-3.5 text-txt-secondary animate-pulse" />
@@ -339,10 +382,10 @@ export const LandingView: React.FC = () => {
                 placeholder={`What do you want to build?\nExample: An AI landing page for my SaaS that helps creators...`}
                 rows={4}
                 maxLength={5000}
-                className="w-full bg-transparent border-0 text-txt-primary placeholder-txt-secondary/40 focus:outline-none text-sm resize-none font-medium"
+                className="w-full bg-transparent border-0 text-txt-primary placeholder-white/60 focus:outline-none text-sm resize-none font-medium"
                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handlePromptSubmit(prompt); } }}
               />
-              <div className="flex items-center justify-between border-t border-white/[0.04] pt-3 gap-3">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-white/[0.04] pt-3 gap-3">
                 <div className="flex items-center gap-2">
                   <button type="button" onClick={() => toast.info('Attachments are integrated with mock DB.')} className="rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 px-3 py-1.5 text-[10px] font-bold text-txt-secondary hover:text-txt-primary flex items-center gap-1.5 cursor-pointer transition-colors">
                     <Paperclip className="h-3.5 w-3.5" /> Attach
@@ -351,9 +394,9 @@ export const LandingView: React.FC = () => {
                     <FolderDown className="h-3.5 w-3.5" /> Import
                   </button>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center justify-between w-full sm:w-auto gap-3">
                   <span className="text-[10px] text-txt-secondary/60 font-mono tabular-nums">{prompt.length}/5000</span>
-                  <button onClick={() => handlePromptSubmit(prompt)} disabled={!prompt.trim()} className="rounded-lg bg-white text-black hover:bg-zinc-100 px-5 py-2 text-xs font-bold flex items-center gap-1.5 cursor-pointer disabled:opacity-40 transition-all">
+                  <button onClick={() => handlePromptSubmit(prompt)} disabled={!prompt.trim()} className="rounded-lg bg-white text-black hover:bg-zinc-100 px-5 py-2 text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-40 transition-all flex-1 sm:flex-none">
                     <Sparkles className="h-3.5 w-3.5" /> Generate <ArrowRight className="h-3.5 w-3.5" />
                   </button>
                 </div>
@@ -363,7 +406,7 @@ export const LandingView: React.FC = () => {
 
           {/* Quick features */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-3xl mx-auto border border-white/10 bg-bg-l0/80 backdrop-blur-md rounded-2xl p-5">
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-3xl mx-auto border border-white/10 bg-bg-l0/80 backdrop-blur-md rounded-2xl p-5">
             {[
               { icon: Zap, title: 'Instant Generation', desc: 'From idea to working product' },
               { icon: Sparkles, title: 'AI-Powered', desc: 'Advanced AI understands you' },
@@ -384,11 +427,11 @@ export const LandingView: React.FC = () => {
 
           {/* Partners marquee */}
           <div className="w-full max-w-3xl mx-auto border-t border-white/[0.06] pt-6 overflow-hidden">
-            <p className="text-[10px] font-bold text-txt-secondary uppercase tracking-widest mb-4">Trusted by builders at</p>
+            <p className="text-[10px] font-bold text-white uppercase tracking-widest mb-4 drop-shadow-md">Trusted by builders at</p>
             <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_15%,white_85%,transparent)]">
-              <div className="animate-marquee flex gap-12 text-txt-secondary text-xs font-bold pr-12">
+              <div className="animate-marquee flex gap-12 text-white text-xs font-bold pr-12 drop-shadow-md">
                 {[...PARTNERS, ...PARTNERS].map((p, i) => (
-                  <span key={i} className="hover:text-txt-primary transition-colors flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+                  <span key={i} className="hover:text-txt-primary transition-colors flex items-center gap-1.5 whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100">
                     <p.icon className="h-4 w-4" />{p.name}
                   </span>
                 ))}
@@ -399,9 +442,15 @@ export const LandingView: React.FC = () => {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════
+           STAR BACKGROUND WRAPPER (From Features to Footer)
+           ═══════════════════════════════════════════════════════════════════ */}
+      <div className="relative w-full">
+        <TwinkleStars />
+
+      {/* ═══════════════════════════════════════════════════════════════════
            FEATURES
            ═══════════════════════════════════════════════════════════════════ */}
-      <Section id="features" className="py-28">
+      <Section id="features" className="py-28 relative z-10">
         <div className="text-center mb-16">
           <SectionLabel><Zap className="h-3 w-3" /> Features</SectionLabel>
           <h2 className="text-3xl md:text-4xl font-black text-txt-primary tracking-tight leading-tight mt-3">
@@ -889,6 +938,7 @@ export const LandingView: React.FC = () => {
           </div>
         </motion.div>
       </Section>
+      </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
            FOOTER

@@ -31,7 +31,7 @@ export const SaaSBillingCalculator: React.FC = () => {
   };
 
   return (
-    <div className="font-sans text-slate-300 p-6 bg-slate-950/80 rounded-2xl border border-white/5 space-y-6 max-w-md mx-auto shadow-2xl relative overflow-hidden">
+    <div className="font-sans text-zinc-300 p-6 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-6 max-w-md mx-auto shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] relative overflow-hidden">
       <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
       
       <div className="flex items-center justify-between border-b border-white/5 pb-3">
@@ -166,7 +166,7 @@ export const VisionOSKanbanBoard: React.FC = () => {
   };
 
   return (
-    <div className="font-sans text-slate-300 p-6 bg-slate-950/80 rounded-2xl border border-white/5 space-y-6 max-w-xl mx-auto shadow-2xl relative overflow-hidden">
+    <div className="font-sans text-zinc-300 p-6 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-6 max-w-xl mx-auto shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-tr from-accent/5 via-transparent to-primary/5 blur-3xl pointer-events-none" />
       
       <div className="flex items-center justify-between border-b border-white/5 pb-3">
@@ -204,14 +204,14 @@ export const VisionOSKanbanBoard: React.FC = () => {
             <div key={colId} className="rounded-xl bg-slate-900/40 p-2.5 border border-white/[0.03] space-y-2 min-h-[160px]">
               <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase tracking-wider border-b border-white/5 pb-1.5 px-1">
                 <span>{colTitle}</span>
-                <span className="tabular-nums font-mono text-[9px] bg-slate-950/80 px-1.5 py-0.5 rounded border border-white/5">{colTasks.length}</span>
+                <span className="tabular-nums font-mono text-[9px] bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-700">{colTasks.length}</span>
               </div>
               
               <div className="space-y-1.5">
                 {colTasks.map(t => (
                   <div
                     key={t.id}
-                    className="bg-slate-950/60 border border-white/5 hover:border-primary/20 rounded-lg p-2 text-[10px] space-y-2 cursor-pointer transition-all hover:translate-y-[-1px]"
+                    className="bg-zinc-900 border border-zinc-800 hover:border-primary/40 hover:bg-zinc-800 rounded-lg p-2 text-[10px] space-y-2 cursor-pointer transition-all hover:translate-y-[-1px]"
                   >
                     <div className="font-semibold text-slate-200 line-clamp-2">{t.title}</div>
                     
@@ -271,7 +271,7 @@ export const AISupportBot: React.FC = () => {
   };
 
   return (
-    <div className="font-sans text-slate-300 p-6 bg-slate-950/80 rounded-2xl border border-white/5 space-y-4 max-w-md mx-auto shadow-2xl relative overflow-hidden flex flex-col h-[350px]">
+    <div className="font-sans text-zinc-300 p-6 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-4 max-w-md mx-auto shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col h-[350px]">
       <div className="flex items-center justify-between border-b border-white/5 pb-2.5 shrink-0">
         <div className="flex items-center gap-2">
           <Brain className="h-4 w-4 text-accent animate-pulse" />

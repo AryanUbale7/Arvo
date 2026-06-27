@@ -245,10 +245,10 @@ export const WorkspaceView: React.FC = () => {
   ];
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-bg-l0 text-txt-primary select-none font-sans text-[12px]">
+    <div className="relative flex h-screen w-screen overflow-hidden bg-zinc-950 text-txt-primary select-none font-sans text-[12px]">
 
       {/* ── Activity Bar (far left) ─────────────────────────────────────── */}
-      <div className="w-12 flex-shrink-0 border-r border-white/[0.05] bg-bg-l0 flex flex-col items-center py-3 gap-1 z-30">
+      <div className="w-12 flex-shrink-0 border-r border-zinc-800 bg-zinc-900 flex flex-col items-center py-3 gap-1 z-30">
         {/* Logo back button */}
         <button
           onClick={() => navigate('/')}
@@ -258,7 +258,7 @@ export const WorkspaceView: React.FC = () => {
           <ArrowLeft className="h-3.5 w-3.5" />
         </button>
 
-        <div className="w-6 border-t border-white/[0.05] mb-2" />
+        <div className="w-6 border-t border-zinc-800 mb-2" />
 
         {/* Chat */}
         <button
@@ -312,18 +312,18 @@ export const WorkspaceView: React.FC = () => {
         </div>
       </div>
 
-      {/* ── Left Side Panel (chat / files / search) ─────────────────────── */}
-      <AnimatePresence>
+      {/* ── Primary Sidebar (Chat / Files / Search) ────────────────────── */}
+      <AnimatePresence initial={false}>
         {showSidebar && (
           <motion.div
             initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 300, opacity: 1 }}
+            animate={{ width: 280, opacity: 1 }}
             exit={{ width: 0, opacity: 0 }}
-            transition={{ duration: 0.18, ease: 'easeInOut' }}
-            className="flex-shrink-0 border-r border-white/[0.05] bg-bg-l1 flex flex-col z-20 overflow-hidden"
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="flex-shrink-0 border-r border-zinc-800 bg-zinc-900 flex flex-col z-20 relative"
           >
             {/* Panel Header */}
-            <div className="flex h-10 items-center justify-between px-3 border-b border-white/[0.04] shrink-0">
+            <div className="flex h-10 items-center justify-between px-3 border-b border-zinc-800 shrink-0">
               <span className="text-[9px] font-bold uppercase tracking-widest text-zinc-600">
                 {activeActivity === 'chat' ? 'ARVO AI Assistant' : activeActivity === 'files' ? 'Explorer' : 'Search'}
               </span>
@@ -336,8 +336,8 @@ export const WorkspaceView: React.FC = () => {
             {activeActivity === 'chat' && (
               <div className="flex-1 flex flex-col overflow-hidden">
                 {/* Project badge */}
-                <div className="px-3 py-2 border-b border-white/[0.04] shrink-0">
-                  <div className="flex items-center gap-2 bg-bg-l2 rounded-lg px-2.5 py-1.5 border border-white/[0.05]">
+                <div className="px-3 py-2 border-b border-zinc-800 shrink-0">
+                  <div className="flex items-center gap-2 bg-zinc-800/50 rounded-lg px-2.5 py-1.5 border border-zinc-700">
                     <div className="h-5 w-5 rounded-md bg-gradient-to-br from-violet-600 to-indigo-700 flex items-center justify-center shrink-0">
                       <Bot className="h-3 w-3 text-white" />
                     </div>
@@ -367,12 +367,12 @@ export const WorkspaceView: React.FC = () => {
                         </div>
                       ) : (
                         <div className="flex items-start gap-2">
-                          <div className="h-5 w-5 rounded-full bg-bg-l2 border border-white/[0.08] flex items-center justify-center shrink-0 mt-0.5">
+                          <div className="h-5 w-5 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center shrink-0 mt-0.5">
                             <Bot className="h-3 w-3 text-txt-secondary" />
                           </div>
                           <div className="max-w-[85%]">
                             <span className="text-[8px] text-txt-secondary font-bold uppercase tracking-widest block mb-1">ARVO Co-pilot</span>
-                            <div className="bg-bg-l2 border border-white/[0.04] rounded-xl rounded-tl-sm px-3 py-2">
+                            <div className="bg-white/[0.03] border border-white/[0.04] rounded-xl rounded-tl-sm px-3 py-2">
                               <p className="text-[11px] text-txt-primary leading-relaxed">{m.text}</p>
                             </div>
                             <span className="text-[8px] text-txt-secondary/50 mt-0.5 block pl-1">
@@ -386,10 +386,10 @@ export const WorkspaceView: React.FC = () => {
 
                   {isCompiling && (
                     <div className="flex items-start gap-2">
-                      <div className="h-5 w-5 rounded-full bg-bg-l2 border border-white/[0.08] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="h-5 w-5 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center shrink-0 mt-0.5">
                         <Bot className="h-3 w-3 text-txt-secondary" />
                       </div>
-                      <div className="bg-bg-l2 border border-white/[0.04] rounded-xl rounded-tl-sm px-3 py-2.5">
+                      <div className="bg-white/[0.03] border border-white/[0.04] rounded-xl rounded-tl-sm px-3 py-2.5">
                         <div className="flex items-center gap-1">
                           <span className="h-1.5 w-1.5 rounded-full bg-zinc-500 animate-bounce" style={{ animationDelay: '0ms' }} />
                           <span className="h-1.5 w-1.5 rounded-full bg-zinc-500 animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -402,9 +402,9 @@ export const WorkspaceView: React.FC = () => {
                 </div>
 
                 {/* Chat Input */}
-                <div className="p-3 border-t border-white/[0.04] shrink-0">
+                <div className="p-3 border-t border-zinc-800 shrink-0">
                   <form onSubmit={handleSendPrompt}>
-                    <div className="relative flex items-end gap-2 bg-bg-l2 border border-white/[0.07] rounded-xl focus-within:border-white/20 transition-colors">
+                    <div className="relative flex items-end gap-2 bg-zinc-950 border border-zinc-700 rounded-xl focus-within:border-zinc-500 transition-colors shadow-inner">
                       <textarea
                         rows={2}
                         value={newPrompt}
@@ -462,7 +462,7 @@ export const WorkspaceView: React.FC = () => {
                   <input
                     type="text"
                     placeholder="Search in files..."
-                    className="w-full bg-bg-l2 border border-white/[0.07] rounded-lg py-2 pl-7 pr-3 text-[11px] text-txt-primary placeholder-txt-secondary/40 focus:outline-none focus:border-white/20 transition-colors"
+                    className="w-full bg-zinc-950 border border-zinc-700 rounded-lg py-2 pl-7 pr-3 text-[11px] text-txt-primary placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors shadow-inner"
                   />
                 </div>
                 <p className="text-[10px] text-txt-secondary/60 px-1">Type to search across all workspace files.</p>
@@ -473,21 +473,21 @@ export const WorkspaceView: React.FC = () => {
       </AnimatePresence>
 
       {/* ── Main Editor + Preview Area ────────────────────────────────────── */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden relative z-10 bg-black">
 
         {/* ── Tab bar ── */}
-        <div className="flex h-10 items-center border-b border-white/[0.05] bg-bg-l0 shrink-0 px-0 overflow-x-auto">
+        <div className="flex h-10 items-center border-b border-zinc-800 bg-zinc-950 shrink-0 px-0 overflow-x-auto">
           {/* Sidebar toggle */}
           <button
             onClick={() => setShowSidebar(s => !s)}
-            className="h-10 px-3 border-r border-white/[0.05] text-zinc-600 hover:text-zinc-300 hover:bg-white/[0.03] transition-all cursor-pointer shrink-0"
+            className="h-10 px-3 border-r border-zinc-800 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800 transition-all cursor-pointer shrink-0"
             title="Toggle Sidebar"
           >
             <LayoutPanelLeft className="h-3.5 w-3.5" />
           </button>
 
           {/* Open file tab */}
-          <div className="flex items-center gap-2 px-4 h-full border-r border-white/[0.05] bg-bg-l1 text-txt-primary text-[11px] font-medium shrink-0">
+          <div className="flex items-center gap-2 px-4 h-full border-r border-zinc-800 bg-zinc-900 text-zinc-100 text-[11px] font-medium shrink-0 shadow-[inset_0_-1px_0_rgba(255,255,255,0.1)]">
             <FileCode className="h-3 w-3 text-blue-400" />
             <span>{activeFile}</span>
             <button className="text-zinc-700 hover:text-white cursor-pointer ml-1">
@@ -548,10 +548,10 @@ export const WorkspaceView: React.FC = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute inset-0 flex flex-col overflow-hidden bg-bg-l0"
+                  className="absolute inset-0 flex flex-col overflow-hidden bg-black"
                 >
                   {/* Browser chrome bar */}
-                  <div className="flex items-center gap-2 px-4 py-2 border-b border-white/[0.04] bg-bg-l1 shrink-0">
+                  <div className="flex items-center gap-2 px-4 py-2 border-b border-zinc-800 bg-zinc-900 shrink-0">
                     {/* dots */}
                     <div className="flex gap-1.5 shrink-0">
                       <span className="h-2.5 w-2.5 rounded-full bg-red-500/50 hover:bg-red-500 transition-colors cursor-pointer" />
@@ -596,10 +596,10 @@ export const WorkspaceView: React.FC = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute inset-0 flex flex-col overflow-hidden bg-bg-l0"
+                  className="absolute inset-0 flex flex-col overflow-hidden bg-black"
                 >
                   {/* Breadcrumb */}
-                  <div className="flex items-center gap-1 px-4 py-1.5 border-b border-white/[0.04] bg-bg-l0 text-[10px] text-txt-secondary shrink-0">
+                  <div className="flex items-center gap-1 px-4 py-1.5 border-b border-zinc-800 bg-zinc-950 text-[10px] text-zinc-500 shrink-0">
                     <span>src</span>
                     <ChevronRight className="h-3 w-3" />
                     <span>components</span>
@@ -629,17 +629,17 @@ export const WorkspaceView: React.FC = () => {
           </div>
 
           {/* ── Terminal drawer ── */}
-          <AnimatePresence>
+          <AnimatePresence initial={false}>
             {showTerminal && (
               <motion.div
-                initial={{ height: 0 }}
-                animate={{ height: 220 }}
-                exit={{ height: 0 }}
-                transition={{ duration: 0.18 }}
-                className="border-t border-white/[0.05] bg-bg-l0 flex flex-col overflow-hidden shrink-0"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 250, opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="border-t border-zinc-800 bg-zinc-950 flex flex-col shrink-0 relative z-20"
               >
                 {/* Terminal tab bar */}
-                <div className="flex items-center justify-between px-4 py-1.5 border-b border-white/[0.04] shrink-0">
+                <div className="flex items-center justify-between px-4 py-1.5 border-b border-zinc-800 bg-zinc-900 shrink-0">
                   <div className="flex items-center gap-1">
                     <button className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06] text-[10px] font-bold text-white">
                       <TermIcon className="h-3 w-3 text-emerald-400" />
